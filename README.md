@@ -1,4 +1,7 @@
-# 📚 IFSync
+<div align="center">
+  <img src="public/img/logo-ifsync.png" width="400" alt="Logo IFSync">
+</div>
+
 
 Plataforma acadêmica desenvolvida em **Laravel** para ajudar estudantes a organizarem sua vida acadêmica de forma prática e eficiente.
 
