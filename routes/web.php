@@ -1,24 +1,47 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
-// Página inicial (Landing Page)
+/*
+|--------------------------------------------------------------------------
+| Rotas da IFSync
+|--------------------------------------------------------------------------
+| Aqui ficam as rotas da sua aplicação: landing page, login, registro e menu.
+| O sistema verifica se o usuário está logado antes de permitir acesso a páginas protegidas.
+*/
+
+// 🌍 Página inicial (Landing Page)
 Route::get('/', function () {
     return view('landing');
 })->name('home');
 
-// Login
-Route::get('/login', function () {
-    return view('auth.login');
-})->name('login');
+// 🧭 Tela de Login
+Route::get('/login', [AuthController::class, 'showLogin'])
+    ->name('login')
+    ->middleware('guest');
 
-// Registro
+// 🔐 Ação de Login (envio do formulário)
+Route::post('/login', [AuthController::class, 'login'])
+    ->name('login.post')
+    ->middleware('guest');
+
+// 🚪 Logout (encerra a sessão)
+Route::post('/logout', [AuthController::class, 'logout'])
+    ->name('logout')
+    ->middleware('auth');
+
+// 🏠 Página principal após o login (Menu ou Dashboard)
+Route::get('/menu', function () {
+    return view('menu');
+})->name('menu')->middleware('auth');
+
+// 🧾 (opcional futuramente) Tela de Registro — ainda não funcional
 Route::get('/register', function () {
     return view('auth.register');
 })->name('register');
 
-// Dashboard
+// 🚧 Exemplo de página protegida futura (Dashboard)
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->name('dashboard');
-
+})->name('dashboard')->middleware('auth');

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IFSync - Login</title>
+    <title>IFSync | Login</title>
 
     <link rel="preload" href="{{ asset('fonts/agrandir/Agrandir-Regular.woff2') }}" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="{{ asset('fonts/agrandir/Agrandir-Bold.woff2') }}" as="font" type="font/woff2" crossorigin>
@@ -255,14 +255,14 @@
     <div class="login-container">
         <img src="{{ asset('img/logo-ifsync.svg') }}" alt="Logo IFSync" class="logo">
 
-        <form method="POST" action="#">
+        <form method="POST" action="{{ route('login.post') }}">
             @csrf
             <div class="input-group">
                 <label for="usuario">
                     <i class="ph ph-user"></i>
-                    Usuário ou E-mail
+                    E-mail
                 </label>
-                <input type="text" id="usuario" name="usuario" required>
+                <input type="email" id="email" name="email" required>
             </div>
 
             <div class="input-group">
@@ -270,7 +270,7 @@
                     <i class="ph ph-lock-key"></i>
                     Senha
                 </label>
-                <input type="password" id="senha" name="senha" required>
+                <input type="password" id="password" name="password" required>
             </div>
 
             <div class="esqueceu-senha">
