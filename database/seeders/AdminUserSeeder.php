@@ -12,14 +12,14 @@ class AdminUserSeeder extends Seeder
 {
     // Nadine Vasconcellos
     \App\Models\User::updateOrCreate(
-        ['email' => 'nadine.almeida.2024003043@estudante.ifsudestemg.edu.br'],
+        ['email' => 'nadine.almeida.2024003048@estudante.ifsudestemg.edu.br'],
         ['name' => 'Nadine Vasconcellos', 'password' => \Illuminate\Support\Facades\Hash::make('ifsync@123')]
     );
 
     // Arthur Oliveira
     \App\Models\User::updateOrCreate(
         ['email' => 'arthur.souza.2024007109@estudante.ifsudestemg.edu.br'],
-        ['name' => 'Arthur Oliveira', 'password' => \Illuminate\Support\Facades\Hash::make('ifsync@123')]
+        ['name' => 'Arthur Souza', 'password' => \Illuminate\Support\Facades\Hash::make('ifsync@123')]
     );
 
     // Áduler Viana
