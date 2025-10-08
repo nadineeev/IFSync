@@ -165,3 +165,4 @@ O arquivo `.env` é essencial no Laravel, pois contém todas as variáveis de co
 - [ ] Subir servidor → `php artisan serve`  
 
 ---
+
