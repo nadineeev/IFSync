@@ -2,9 +2,23 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'landing')->name('landing');
+// Página inicial (Landing Page)
+Route::get('/', function () {
+    return view('landing');
+})->name('home');
 
-// Destinos dos botões (placeholders por enquanto)
-Route::view('/register', 'auth.register')->name('register');
-Route::view('/login', 'auth.login')->name('login');
-Route::view('/sobre', 'about')->name('about');
+// Login
+Route::get('/login', function () {
+    return view('auth.login');
+})->name('login');
+
+// Registro
+Route::get('/register', function () {
+    return view('auth.register');
+})->name('register');
+
+// Dashboard
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
+

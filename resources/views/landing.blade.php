@@ -158,7 +158,7 @@
     <div class="container">
 
       <div class="topo" aria-label="Acesso rápido">
-        <a class="botao botao-contorno" href="{{ route('register') }}">Cadastrar-se</a>
+        <a class="botao botao-contorno" href="{{ route('login') }}">Cadastrar-se</a>
         <a class="botao botao-preenchido" href="{{ route('login') }}">Login</a>
       </div>
 
@@ -170,7 +170,7 @@
 
           <h1 id="hero-title" class="titulo">Sincronizando sua vida acadêmica</h1>
           <p class="subtitulo">Sua rotina de estudante, mais leve e eficiente.</p>
-          <a class="botao botao-preenchido botao-saibamais" href="{{ route('about') }}">Saiba mais</a>
+          <a class="botao botao-preenchido botao-saibamais" href="#sobre">Saiba mais</a>
         </div>
 
         <div class="ilustracao">
