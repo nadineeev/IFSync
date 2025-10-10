@@ -16,7 +16,7 @@ class AdminUserSeeder extends Seeder
         ['name' => 'Nadine Vasconcellos', 'password' => \Illuminate\Support\Facades\Hash::make('ifsync@123')]
     );
 
-    // Arthur Oliveira
+    // Arthur Souza
     \App\Models\User::updateOrCreate(
         ['email' => 'arthur.souza.2024007109@estudante.ifsudestemg.edu.br'],
         ['name' => 'Arthur Souza', 'password' => \Illuminate\Support\Facades\Hash::make('ifsync@123')]
