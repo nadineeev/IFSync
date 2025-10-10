@@ -36,10 +36,15 @@ Route::get('/menu', function () {
     return view('menu');
 })->name('menu')->middleware('auth');
 
-// 🧾 (opcional futuramente) Tela de Registro — ainda não funcional
-Route::get('/register', function () {
-    return view('auth.register');
-})->name('register');
+// Mostrar formulário de cadastro (usa AuthController)
+Route::get('/register', [AuthController::class, 'showRegister'])
+    ->name('register')
+    ->middleware('guest');
+
+// Tratar submissão do formulário de cadastro
+Route::post('/register', [AuthController::class, 'register'])
+    ->name('register.post')
+    ->middleware('guest');
 
 // 🚧 Exemplo de página protegida futura (Dashboard)
 Route::get('/dashboard', function () {

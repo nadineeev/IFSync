@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IFSync | Login</title>
+    <title>IFSync | Cadastro</title>
 
     <link rel="preload" href="{{ asset('fonts/agrandir/Agrandir-Regular.woff2') }}" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="{{ asset('fonts/agrandir/Agrandir-Bold.woff2') }}" as="font" type="font/woff2" crossorigin>
@@ -37,9 +37,9 @@
 
         body {
             margin: 0;
-            background-color: #0B2E5B;
-            background-image: url("{{ asset(' img/login-telafundo.png') }}");
-            background-size: cover;
+            background-color: #31934b;
+            background-image: url("{{ asset(' img/cadastro-telafundo.png') }}");
+            background-size: contain;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -50,17 +50,17 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        .login-container {
+        .cadastro-container {
             background-color: #FBF8F1;
             border-radius: 20px;
             padding: 50px 60px;
-            width: 400px;
+            width: 70vw;
             max-width: 90vw;
             box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
             text-align: center;
             animation: fadeIn 0.8s ease-in-out;
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             align-items: center;
         }
 
@@ -76,7 +76,7 @@
             }
         }
 
-        .login-container form {
+        .cadastro-container form {
             width: 100%;
             max-width: 380px;
             /* limita largura do conteúdo interno */
@@ -263,35 +263,49 @@
         <i class="ph ph-arrow-left"></i>
     </a>
 
-    <div class="login-container">
+    <div class="cadastro-container">
+        <div>
+            <h1>Cadastre-se</h1>
+            <h3>O sucesso acadêmico começa com a organização</h3>
+            <p>imagem</p>
+        </div>
+        <div>
         <img src="{{ asset('img/logo-ifsync.svg') }}" alt="Logo IFSync" class="logo">
 
-        <form method="POST" action="{{ route('login.post') }}">
+        <form method="POST" action="{{ route('register.post') }}">
             @csrf
+
             <div class="input-group">
-                <label for="usuario">
-                    <i class="ph ph-user"></i>
-                    E-mail
-                </label>
-                <input type="email" id="email" name="email" required>
+                <label>Nome</label>
+                <input type="text" name="name" value="{{ old('name') }}" required>
             </div>
 
             <div class="input-group">
-                <label for="senha">
-                    <i class="ph ph-lock-key"></i>
-                    Senha
-                </label>
-                <input type="password" id="password" name="password" required>
+                <label>E-mail</label>
+                <input type="email" name="email" value="{{ old('email') }}" required>
             </div>
 
-            <div class="esqueceu-senha">
-                <a href="#">Esqueceu a senha?</a>
+            <div class="input-group">
+                <label>Telefone</label>
+                <input type="text" name="telefone" value="{{ old('telefone') }}" required>
             </div>
 
-            <button type="submit">LOGIN</button>
+            <div class="input-group">
+                <label>Senha</label>
+                <input type="password" name="password" required>
+            </div>
 
-            <p class="register">Não possui uma conta? <a href="#">Cadastre-se</a></p>
+            <div class="input-group">
+                <label>Confirmar senha</label>
+                <input type="password" name="confirm_password" required>
+            </div>
+
+            <button type="submit">CRIAR CONTA</button>
         </form>
+
+        <p>Já tem uma conta? <a href="{{ route('login') }}">LOGIN</a></p>
+        </form>
+        </div>
     </div>
 
 </body>
