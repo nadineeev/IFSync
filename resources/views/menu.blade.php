@@ -9,13 +9,12 @@
     <link rel="preload" href="{{ asset('fonts/agrandir/Agrandir-Regular.woff2') }}" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="{{ asset('fonts/agrandir/Agrandir-Bold.woff2') }}" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
             --bg-sidebar: #ffffff;
@@ -23,22 +22,20 @@
             --texto-principal: #0a315b;
             --texto-alternativo: #582e26;
             --link-selecionado: #31934b;
+            --sidebar-pad-y: 20px;   /* ↑ topo mais folgado nas sidebars */
+            --sidebar-pad-x: 20px;
         }
 
         @font-face {
             font-family: 'Agrandir';
             src: url("{{ asset('fonts/agrandir/Agrandir-Regular.woff2') }}") format('woff2');
             font-weight: 400;
-            font-style: normal;
-            font-display: swap;
         }
 
         @font-face {
             font-family: 'Agrandir';
             src: url("{{ asset('fonts/agrandir/Agrandir-Bold.woff2') }}") format('woff2');
             font-weight: 700;
-            font-style: normal;
-            font-display: swap;
         }
 
         body {
@@ -47,189 +44,168 @@
             color: var(--texto-principal);
             display: flex;
             height: 100vh;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            overflow: hidden; /* Impede scroll duplo */
         }
 
-        .sidebar-esquerda,
-        .sidebar-direita {
+        .sidebar-esquerda, .sidebar-direita {
+            position: fixed;
+            top: 0;
+            bottom: 0;
             width: 240px;
+            height: 100vh; /* garante que não ultrapasse a tela */
             background-color: var(--bg-sidebar);
-            padding: 30px 20px;
+            padding: var(--sidebar-pad-y) var(--sidebar-pad-x) 24px var(--sidebar-pad-x);
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            text-overflow: hidden;
+            justify-content: space-between; /* distribui o conteúdo */
+            font-size: 0.9rem;
+            z-index: 9;
+            overflow: hidden; /* impede qualquer scroll */
         }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 30px;
+        .sidebar-esquerda {
+            left: 0;
+            border-right: 3px solid #ffffffff;
         }
 
-        .logo img {
-            width: 80%;
+        .sidebar-direita {
+            right: 0;
+            border-left: 3px solid #ffffffff;
         }
 
-        .img-apoio {
-            width: 70%;
-            margin: 20px;
+        /* Garante que elementos internos se adaptem dentro da altura da sidebar */
+        .sidebar-esquerda > div,
+        .sidebar-direita > div {
+            flex-shrink: 1;
+            flex-grow: 0;
+            min-height: 0;
         }
 
-        .logo h2 {
-            font-size: 18px;
-            color: #004d40;
-            font-weight: 700;
-            margin: 0;
+        .logo { display: flex; align-items: center; gap: 8px; margin-bottom: 30px; }
+        .logo img { width: 80%; }
+
+        .img-apoio { width: 70%; margin: 20px; }
+
+        .menu-item, .logout-btn {
+            display: flex; align-items: center; gap: 8px;
+            color: inherit; text-decoration: none;
+            margin: 12px 0; font-weight: 500; transition: 0.2s;
         }
 
-        .menu-item,
-        .logout-btn {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: inherit;
-            text-decoration: none;
-            margin: 12px 0;
-            font-weight: 500;
-            transition: 0.2s;
-        }
-
-        .menu-item:hover {
-            color: var(--link-selecionado);
-        }
+        .menu-item:hover, .menu-item.ativo { color: var(--link-selecionado); }
 
         .logout-btn {
-            background: none;
-            border: none;
-            color: #ff4524;
-            font-family: inherit;
-            font-size: inherit;
-            cursor: pointer;
-            padding: 0;
+            background: none; border: none; color: #ff4524;
+            font-family: inherit; font-size: inherit;
+            cursor: pointer; padding: 0;
+        }
+        .logout-btn:hover { color: #b71c1c; }
+
+        .subtitulo { color: var(--texto-principal); font-weight: 900; font-size: 18px; }
+        .icons { font-size: 18px; }
+
+        .dropdown-menu {
+            border: 1px solid #0a315b !important;
+            border-radius: 10px; padding: 6px;
+            box-shadow: 0 8px 24px rgba(10, 49, 91, .16);
+            min-width: 220px;
         }
 
-        .logout-btn:hover {
-            color: #b71c1c;
+        .dropdown-item {
+            display: flex; align-items: center; gap: 8px;
+            color: var(--texto-principal) !important;
+            font-weight: 500; border-radius: 8px;
+            padding: 10px 12px;
+            transition: color .2s, background-color .2s;
         }
 
-        .subtitulo {
-            color: var(--texto-principal);
-            font-weight: 900;
-            font-size: 20px;
+        .dropdown-item:hover {
+            color: var(--link-selecionado) !important;
+            background-color: rgba(49, 147, 75, 0.08) !important;
         }
 
+        #menuDropdown.btn { padding: 0; line-height: 1; color: var(--texto-principal); }
+        #menuDropdown.btn:hover { color: var(--link-selecionado); }
 
-        .icons {
-            font-size: 20px;
-        }
+        .icon-perfil { align-self: center; font-size: 75px; color: var(--link-selecionado); }
 
-        .icon-perfil {
-            align-self: center;
-            font-size: 80px;
-            color: var(--link-selecionado);
-        }
-
-        .texto-alternativo {
-            color: var(--texto-alternativo);
-            font-size: 11px;
-            margin: 5px 0;
-        }
+        .texto-alternativo { color: var(--texto-alternativo); font-size: 11px; margin: 4px 0; }
 
         .perfil-usuario-menu {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin: 0;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
             text-align: center;
         }
 
-        .perfil-usuario-menu p {
-            margin: 0;
-            padding: 2px;
-        }
+        .perfil-usuario-menu p { margin: 0; padding: 2px; }
 
-        .lista-horizontal,
-        .lista-horizontal-espacada {
-            display: flex;
-            width: 100%;
-            justify-content: space-between;
-            align-self: center;
-            align-items: center;
+        .lista-horizontal, .lista-horizontal-espacada {
+            display: flex; width: 100%;
+            justify-content: space-between; align-items: center;
         }
 
         .icons-borda {
             border: 1px solid var(--texto-principal);
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            border-radius: 60%; width: 40px; height: 40px;
+            display: flex; align-items: center; justify-content: center;
             transition: 0.2s;
         }
 
         .icons-borda:hover {
             background-color: var(--link-selecionado);
-            color: #fff;
-            border-color: var(--link-selecionado);
+            color: #fff; border-color: var(--link-selecionado);
             cursor: pointer;
         }
 
-        .icons-borda i,
-        .icon-perfil {
-            margin-bottom: -4px;
-        }
+        .lista-disciplinas { margin: 10px 20px 20px 20px; font-size: 14px; }
+        .lista-disciplinas li { padding: 5px; }
 
-        .lista-disciplinas {
-            margin: 10px 20px 20px 20px;
-            font-size: 15px;
-        }
-
-        .lista-disciplinas li {
-            padding: 4px;
-        }
-
-        /* === MAIN (apenas placeholder) === */
         .main {
-            padding: 15px 15px 0 15px;
-            flex: 1;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            padding: 15px;
+            flex: 1; display: flex;
             flex-direction: column;
+            justify-content: center;     /* centraliza o h2 */
+            align-items: center;
+            text-align: center;
+            position: relative;          /* para posicionar o rodapé dentro da main */
+            min-height: 100vh;
         }
 
         .rodape-logo {
-            display: flex;
-            justify-content: center;
-            width: 100%;
+            position: absolute;
+            bottom: 15px;                /* gruda no fundo da main */
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .rodape-logo img { width: 20vw; min-width: 250px; }
+
+        /* ≤ 1200px: um pouco menos de respiro para caber melhor */
+        @media (max-width: 1200px){
+            :root{ --sidebar-pad-y: 34px; }
         }
 
-        .rodape-logo img {
-            width: 20vw;
-            min-width: 250px;
+        /* ≤ 992px: ainda menor, mantendo tudo dentro sem scroll nas sidebars */
+        @media (max-width: 992px){
+            :root{ --sidebar-pad-y: 26px; }
         }
+
     </style>
 </head>
 
 <body>
 
-    {{-- sidebar esquerda --}}
+    {{-- Sidebar esquerda --}}
     <div class="sidebar-esquerda">
         <div>
             <div class="logo">
                 <img src="{{ asset('img/logo-ifsync.svg') }}" alt="Logomarca IFSync">
             </div>
 
-            <h3 class="subtitulo">VISÃO GERAL</h3>
+            <a href="#" class="menu-item ativo"><i class="icons bi bi-house"></i>Menu Principal</a>
             <a href="#" class="menu-item"><i class="icons bi bi-calendar-date"></i>Agenda</a>
             <a href="#" class="menu-item"><i class="icons bi bi-calendar4-range"></i>Grade de Horários</a>
             <a href="#" class="menu-item"><i class="icons bi bi-check2-circle"></i>Avaliações e Notas</a>
-            <a href="#" class="menu-item"><i class="icons bi bi-alarm"></i>Frequência</a>
+            <a href="{{ route('frequencia') }}" class="menu-item"><i class="icons bi bi-alarm"></i>Frequência</a>
         </div>
 
         <img src="{{ asset('img/img-sidebar.png') }}" class="img-apoio" alt="Figura com elementos acadêmicos">
@@ -238,7 +214,6 @@
             <h3 class="subtitulo">CONFIGURAÇÕES</h3>
             <a href="#" class="menu-item"><i class="icons bi bi-gear"></i>Configurações</a>
 
-            {{-- BOTÃO DE LOGOUT --}}
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button type="submit" class="logout-btn">
@@ -248,7 +223,7 @@
         </div>
     </div>
 
-    {{-- MAIN --}}
+    {{-- Main --}}
     <div class="main">
         <h2>Conteúdo</h2>
         <footer class="rodape-logo">
@@ -256,39 +231,56 @@
         </footer>
     </div>
 
-
-    {{-- sidebar direita --}}
+    {{-- Sidebar direita atualizada --}}
     <div class="sidebar-direita">
         <div class="lista-horizontal-espacada">
             <h3 class="subtitulo">Seu perfil</h3>
-            <a href="#"><i class="icons bi bi-three-dots-vertical"></i></a>
+            <div class="dropdown">
+                <button class="btn btn-light border-0" type="button" id="menuDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="icons bi bi-three-dots-vertical"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="menuDropdown">
+                    <li><a class="dropdown-item" href="#">Editar Perfil</a></li>
+                    <li><a class="dropdown-item" href="{{ route('cadastroDisciplinas') }}">Cadastrar Disciplinas</a></li>
+                </ul>
+            </div>
         </div>
-        <div>
+        
+        {{-- Perfil do usuário --}}
         <div class="perfil-usuario-menu">
             <i class="icon-perfil bi bi-person-circle"></i>
-            <p>&#127774; Bom dia, Aluno(a)!</p>
+            <p>☀️ Bom dia, {{ Auth::user()->name ?? 'Aluno(a)' }}!</p>
             <p class="texto-alternativo">Acesse suas notificações, arquivos e fique por dentro das novidades da instituição.</p>
         </div>
+
         <div class="lista-horizontal">
             <a href="#" class="menu-item"><span class="icons-borda"><i class="icons bi bi-bell"></i></span></a>
             <a href="#" class="menu-item"><span class="icons-borda"><i class="icons bi bi-files"></i></span></a>
             <a href="#" class="menu-item"><span class="icons-borda"><i class="icons bi bi-newspaper"></i></span></a>
         </div>
-    </div>
+
+        {{-- Disciplinas dinâmicas --}}
         <div class="disciplinas-usuario">
             <h3 class="subtitulo">Suas disciplinas</h3>
             <ul class="lista-disciplinas">
-                <li>Disciplina 1</li>
-                <li>Disciplina 2</li>
-                <li>Disciplina 3</li>
-                <li>Disciplina 4</li>
-                <li>Disciplina 5</li>
-                <li>Disciplina 6</li>
-                <li>Disciplina 7</li>
-                <li>Disciplina 8</li>
+                @php
+                    use Illuminate\Support\Facades\DB;
+                    use Illuminate\Support\Facades\Auth;
+
+                    $disciplinasUsuario = DB::table('aluno_disciplinas')
+                        ->join('disciplinas', 'aluno_disciplinas.disciplina_id', '=', 'disciplinas.id')
+                        ->where('aluno_disciplinas.user_id', Auth::id())
+                        ->select('disciplinas.nome_disciplina')
+                        ->get();
+                @endphp
+
+                @forelse($disciplinasUsuario as $disciplina)
+                    <li>{{ $disciplina->nome_disciplina }}</li>
+                @empty
+                    <li class="text-muted">Nenhuma disciplina cadastrada ainda</li>
+                @endforelse
             </ul>
         </div>
     </div>
 </body>
-
 </html>

@@ -38,7 +38,7 @@
         body {
             margin: 0;
             background-color: #0B2E5B;
-            background-image: url("{{ asset(' img/login-telafundo.png') }}");
+            background-image: url("{{ asset('img/login-telafundo.png') }}");
             background-size: cover;
             display: flex;
             align-items: center;
@@ -259,12 +259,20 @@
 
 <body>
 
-    <a href="{{ route('home') }}" class="back-button">
+    <a href="{{ route('landing') }}" class="back-button">
         <i class="ph ph-arrow-left"></i>
     </a>
 
     <div class="login-container">
         <img src="{{ asset('img/logo-ifsync.svg') }}" alt="Logo IFSync" class="logo">
+
+        @if ($errors->any())
+            <div style="color:red; margin-bottom:10px;">
+                @foreach ($errors->all() as $error)
+                    <p>{{ $error }}</p>
+                @endforeach
+            </div>
+        @endif
 
         <form method="POST" action="{{ route('login.post') }}">
             @csrf

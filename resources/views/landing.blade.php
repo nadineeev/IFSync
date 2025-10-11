@@ -180,7 +180,7 @@
 
         <h1 id="hero-title" class="titulo">Sincronizando sua vida acadêmica</h1>
         <p class="subtitulo">Sua rotina de estudante, mais leve e eficiente.</p>
-        <a class="botao botao-preenchido botao-saibamais" href="{{ route('home') }}">Saiba mais</a>
+        <a class="botao botao-preenchido botao-saibamais" href="#">Saiba mais</a>
       </div>
 
       <div class="ilustracao">

@@ -1,52 +1,44 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DisciplinaController;
+use App\Http\Controllers\FrequenciaController;
+use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Rotas da IFSync
-|--------------------------------------------------------------------------
-| Aqui ficam as rotas da sua aplicação: landing page, login, registro e menu.
-| O sistema verifica se o usuário está logado antes de permitir acesso a páginas protegidas.
-*/
+// Landing page
+Route::get('/', fn() => view('landing'))->name('landing');
 
-// 🌍 Página inicial (Landing Page)
-Route::get('/', function () {
-    return view('landing');
-})->name('home');
+// Login e registro
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+Route::post('/register', [AuthController::class, 'register'])->name('register.post');
 
-// 🧭 Tela de Login
-Route::get('/login', [AuthController::class, 'showLogin'])
-    ->name('login')
-    ->middleware('guest');
+// Menu principal (pós-login)
+Route::get('/menu', fn() => view('menu'))
+    ->middleware(['auth'])
+    ->name('menu');
 
-// 🔐 Ação de Login (envio do formulário)
-Route::post('/login', [AuthController::class, 'login'])
-    ->name('login.post')
-    ->middleware('guest');
+// Logout
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// 🚪 Logout (encerra a sessão)
-Route::post('/logout', [AuthController::class, 'logout'])
-    ->name('logout')
+// Rotas futuras (temporárias) só pra evitar erro
+Route::get('/agenda', fn() => 'Página de Agenda em construção')->name('agenda');
+Route::get('/grade', fn() => 'Página de Grade em construção')->name('grade');
+Route::get('/avaliacoes', fn() => 'Página de Avaliações em construção')->name('avaliacoes');
+
+Route::get('/frequencia', [FrequenciaController::class, 'index'])
+    ->name('frequencia')
     ->middleware('auth');
 
-// 🏠 Página principal após o login (Menu ou Dashboard)
-Route::get('/menu', function () {
-    return view('menu');
-})->name('menu')->middleware('auth');
+Route::get('/config', fn() => 'Página de Configurações em construção')
+    ->middleware(['auth'])
+    ->name('config');
 
-// Mostrar formulário de cadastro (usa AuthController)
-Route::get('/register', [AuthController::class, 'showRegister'])
-    ->name('register')
-    ->middleware('guest');
+Route::get('/disciplinas', [DisciplinaController::class, 'cadastrar'])
+    ->middleware(['auth'])
+    ->name('cadastroDisciplinas');
 
-// Tratar submissão do formulário de cadastro
-Route::post('/register', [AuthController::class, 'register'])
-    ->name('register.post')
-    ->middleware('guest');
-
-// 🚧 Exemplo de página protegida futura (Dashboard)
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard')->middleware('auth');
+Route::post('/disciplinas/salvar', [DisciplinaController::class, 'salvar'])
+    ->middleware(['auth'])
+    ->name('salvarDisciplinas');
