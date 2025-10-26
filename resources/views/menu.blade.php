@@ -217,8 +217,6 @@
 </head>
 
 <body>
-
-    {{-- sidebar esquerda --}}
     <div class="sidebar-esquerda">
         <div>
             <div class="logo">
@@ -248,7 +246,6 @@
         </div>
     </div>
 
-    {{-- MAIN --}}
     <div class="main">
         <h2>Conteúdo</h2>
         <footer class="rodape-logo">
@@ -256,8 +253,6 @@
         </footer>
     </div>
 
-
-    {{-- sidebar direita --}}
     <div class="sidebar-direita">
         <div class="lista-horizontal-espacada">
             <h3 class="subtitulo">Seu perfil</h3>

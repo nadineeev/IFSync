@@ -38,7 +38,7 @@
         body {
             margin: 0;
             background-color: #0B2E5B;
-            background-image: url("{{ asset(' img/login-telafundo.png') }}");
+            background-image: url("{{ asset('img/login-telafundo.png') }}");
             background-size: cover;
             display: flex;
             align-items: center;

@@ -16,6 +16,8 @@
     <link rel="apple-touch-icon" href="{{ asset('favicons/apple-touch-icon.png') }}">
     <link rel="mask-icon" href="{{ asset('favicons/favicon.svg') }}" color="#111111">
     <link rel="manifest" href="{{ asset('favicons/site.webmanifest') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <meta name="theme-color" content="#ffffff">
 
     <style>
@@ -35,33 +37,29 @@
             font-display: swap;
         }
 
+        :root {
+            --bg-principal: #f6f1e6;
+            --bg-container: #fdf9ee;
+            --texto-principal: #0a315b;
+            --texto-alternativo: #582e26;
+            --link-selecionado: #31934b;
+            --campos-form: #5e90ba;
+            --texto-destaque: #ffa361;
+        }
+
         body {
             margin: 0;
             background-color: #31934b;
-            background-image: url("{{ asset(' img/cadastro-telafundo.png') }}");
+            background-image: url("{{ asset('img/cadastro-telafundo.png') }}");
             background-size: contain;
             display: flex;
             align-items: center;
             justify-content: center;
             height: 100vh;
             font-family: 'Agrandir', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-            color: #0a2a47;
+            color: var(--texto-principal);
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-        }
-
-        .cadastro-container {
-            background-color: #FBF8F1;
-            border-radius: 20px;
-            padding: 50px 60px;
-            width: 70vw;
-            max-width: 90vw;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            animation: fadeIn 0.8s ease-in-out;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
         }
 
         @keyframes fadeIn {
@@ -76,108 +74,124 @@
             }
         }
 
-        .cadastro-container form {
-            width: 100%;
-            max-width: 380px;
-            /* limita largura do conteúdo interno */
+        .cadastro-container {
+            font-family: inherit;
+            background-color: var(--bg-container);
+            border-radius: 20px;
+            padding: 10px;
+            width: 900px;
+            max-width: 90vw;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            animation: fadeIn 0.8s ease-in-out;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            height: 536px;
+            max-height: 90vh;
+            overflow: auto;
+            overflow-x: hidden;
+        }
+
+        .texto-container {
+            text-align: left;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            /* centraliza o formulário */
+            justify-content: center;
+            height: 100%;
+            flex-wrap: wrap;
+        }
+
+        .img-cadastro {
+            width: 300px;
+            max-width: 90%;
+            height: auto;
+            margin: 10px 10px 0 10px;
+        }
+
+        .icons {
+            margin: 1px 1px 1px 0;
+        }
+
+        .texto,
+        .termos, .texto-destaque {
+            color: var(--texto-alternativo);
+            margin: 0;
+        }
+
+        .titulo {
+            margin: 0;
+            font-size: 40px;
+            font-weight: 700;
         }
 
         .logo {
             width: 250px;
             height: auto;
-            margin-bottom: 30px;
-        }
-
-        h1 {
-            color: #093E79;
             margin-bottom: 10px;
         }
 
-        .input-group {
-            width: 100%;
-            text-align: left;
-            margin-bottom: 20px;
-        }
-
-        .input-group label {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            /* espaço entre ícone e texto */
-            font-size: 16px;
-            color: #093E79;
-            font-weight: 600;
-            margin-bottom: 5px;
-            transition: color 0.2s ease;
-        }
-
-        .input-group label i {
-            font-size: 18px;
-            color: #198754;
-            /* verde do tema */
-        }
-
-        .input-group input:focus+label,
-        .input-group input:hover+label {
-            color: #198754;
-        }
-
-        .input-group input {
-            width: 100%;
-            padding: 12px 14px;
-            border-radius: 8px;
-            border: 2px solid #22A45D;
-            outline: none;
-            transition: border-color .2s ease, box-shadow .2s ease, background-color .2s ease;
-            font-size: 14px;
-            background: #fff;
-            box-sizing: border-box;
-
-        }
-
-        .input-group input:hover {
-            border-color: #22A45D;
-            box-shadow: 0 0 0 3px rgba(34, 164, 93, 0.18);
-            background: #fff;
-            cursor: text;
-        }
-
-        .input-group input:focus {
-            border-color: #198754;
-            box-shadow: 0 0 0 3px rgba(34, 164, 93, 0.25);
-        }
-
-        .esqueceu-senha {
+        .cadastro-container form {
+            user-select: none;
             width: 100%;
             display: flex;
-            justify-content: flex-end;
-            margin-top: 1px;
-            margin-bottom: 20px;
+            flex-direction: column;
+            align-items: center;
+            flex-wrap: wrap;
         }
 
-        .esqueceu-senha a {
-            color: #0A4D92;
-            font-size: 14px;
-            text-decoration: none;
+        .form-floating {
+            width: 100%;
+            gap: 0px;
         }
 
-        .esqueceu-senha a:hover {
-            text-decoration: underline;
+        .form-floating label {
+            margin: 1px;
+            color: var(--texto-principal);
+        }
+
+        .form-floating input {
+            border: 3px solid var(--campos-form);
+            border-radius: 20px;
+            background-color: transparent;
+            margin-bottom: 10px;
+            font-size: 13px;
+        }
+
+
+        .form-floating input:hover+.form-floating input:focus {
+            border-color: #326792ff;
+            background-color: transparent;
+        }
+
+        .termos {
+            font-size: 12px;
+            margin-left: 5px;
+            padding: 0;
+            cursor: pointer;
+        }
+
+        .texto-destaque {
+            font-weight: 600;
+            color: var(--texto-destaque);
+        }
+
+        .form-grupo {
+            display: flex;
+            align-items: flex-start;
+            justify-content: stretch;
         }
 
         button {
-            width: 76%;
+            width: 70%;
             height: 48px;
             padding: 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: #22A45D;
+            background-color: var(--campos-form);
             color: #fff;
             border: none;
             border-radius: 10px;
@@ -186,26 +200,26 @@
             line-height: 1;
             cursor: pointer;
             transition: all 0.3s ease;
+            margin: 15px;
         }
 
         button:hover {
-            background-color: #198754;
+            background-color: #326792ff;
             transform: scale(1.03);
         }
 
-        .register {
-            margin-top: 15px;
+        .login {
             font-size: 14px;
-            color: #333;
+            color: var(--texto-alternativo);
         }
 
-        .register a {
-            color: #F77B55;
+        .login a {
+            color: var(--link-selecionado);
             text-decoration: none;
             font-weight: 500;
         }
 
-        .register a:hover {
+        .login a:hover {
             text-decoration: underline;
         }
 
@@ -264,50 +278,71 @@
     </a>
 
     <div class="cadastro-container">
-        <div>
-            <h1>Cadastre-se</h1>
-            <h3>O sucesso acadêmico começa com a organização</h3>
-            <p>imagem</p>
+        <div class="texto-container">
+            <p class="titulo">Cadastre-se</p>
+            <p class="texto">O sucesso acadêmico começa com a<br>organização</p>
+            <img src="{{ asset('img/img-formcadastro.png') }}" alt="Ilustração de uma mulher escrevendo em um telefone com um relógio ao lado" class="img-cadastro">
         </div>
         <div>
-        <img src="{{ asset('img/logo-ifsync.svg') }}" alt="Logo IFSync" class="logo">
+            <img src="{{ asset('img/logo-ifsync.svg') }}" alt="Logo IFSync" class="logo">
 
-        <form method="POST" action="{{ route('register.post') }}">
-            @csrf
+            <form method="POST" action="{{ route('register.post') }}">
+                @csrf
 
-            <div class="input-group">
-                <label>Nome</label>
-                <input type="text" name="name" value="{{ old('name') }}" required>
-            </div>
+                <div class="form-floating">
+                    <input type="text" class="form-control" name="name" id="name" value="{{ old('name') }}" placeholder="Nome Completo" required>
+                    <label for="name">
+                        <i class="icons ph ph-user"></i>
+                        Nome completo
+                    </label>
+                </div>
 
-            <div class="input-group">
-                <label>E-mail</label>
-                <input type="email" name="email" value="{{ old('email') }}" required>
-            </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-floating">
+                            <input type="email" class="form-control" name="email" id="email" value="{{ old('email') }}" placeholder="E-mail" required>
+                            <label for="email">
+                                <i class="icons ph ph-at"></i>
+                                E-mail
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" name="telefone" id="telefone" value="{{ old('telefone') }}" placeholder="Telefone" required>
+                            <label for="telefone">
+                                <i class="icons ph ph-phone"></i>
+                                Telefone
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-floating">
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Senha" required>
+                    <label for="password">
+                        <i class="icons ph ph-lock-key"></i>
+                        Senha
+                    </label>
+                </div>
+                <div class="form-floating">
+                    <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="Confirmar senha" required>
+                    <label for="confirm_password">
+                        <i class="icons ph ph-lock-key"></i>
+                        Confirmar senha
+                    </label>
+                </div>
+                <div class="form-grupo">
+                    <input type="checkbox" id="termos" name="termos" style="cursor: pointer;" required>
+                    <label for="termos" class="termos">Concordo com todos os <span class="texto-destaque">Termos</span> e <span class="texto-destaque">Política de Privacidade</span></label>
+                </div>
+                <button type="submit">CRIAR CONTA</button>
+            </form>
 
-            <div class="input-group">
-                <label>Telefone</label>
-                <input type="text" name="telefone" value="{{ old('telefone') }}" required>
-            </div>
-
-            <div class="input-group">
-                <label>Senha</label>
-                <input type="password" name="password" required>
-            </div>
-
-            <div class="input-group">
-                <label>Confirmar senha</label>
-                <input type="password" name="confirm_password" required>
-            </div>
-
-            <button type="submit">CRIAR CONTA</button>
-        </form>
-
-        <p>Já tem uma conta? <a href="{{ route('login') }}">LOGIN</a></p>
-        </form>
+            <p class="login">Já tem uma conta? <a href="{{ route('login') }}">LOGIN</a></p>
+            </form>
         </div>
     </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
 
 </html>
