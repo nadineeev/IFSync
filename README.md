@@ -2,167 +2,85 @@
   <img src="public/img/logo-ifsync.png" width="400" alt="Logo IFSync">
 </div>
 
-
-Plataforma acadêmica desenvolvida em **Laravel** para ajudar estudantes a organizarem sua vida acadêmica de forma prática e eficiente.
-
----
-
-## 🚀 Guia de Instalação e Configuração
-
-Este guia ensina passo a passo como configurar o ambiente de desenvolvimento no **Windows** usando **XAMPP + PHP + Composer**, para rodar o IFSync localmente.
+### IFSync — Branch Pública (Hospedagem Temporária)
+Objetivo desta branch: disponibilizar apenas o necessário para a existência e visualização do site, sem integração com banco de dados, permitindo que o professor hospede o sistema e navegue pelas telas principais.
 
 ---
 
-## ✅ Pré-requisitos
+## Contexto
+O projeto completo IFSync ainda está em desenvolvimento. Criamos uma branch pública apenas para hospedagem e visualização das principais telas do sistema. Essa branch contém apenas:
+• landing.blade.php — Página inicial (funciona como index.html)
+• Tela de Login
+• Tela do Menu Principal
 
-- Windows 10 ou 11  
-- Git instalado → https://git-scm.com/downloads  
-  Para verificar:
-    
-        git --version
-
-- XAMPP instalado → https://www.apachefriends.org/pt_br/index.html  
-- Composer instalado → https://getcomposer.org/download/  
+A autenticação está temporariamente desativada, pois o banco de dados não será
+importado no ambiente do professor. Ao clicar no botão “Login”, independente dos campos preenchidos, o usuário é redirecionado automaticamente para o menu principal. Essa configuração é intencional — feita apenas para demonstrar o layout e o fluxo de navegação.
 
 ---
 
-### 📌 Passo 1 — Instalar o XAMPP (PHP + MySQL)
-
-- Instale o **XAMPP** com PHP 8.2+.  
-- Abra o **XAMPP Control Panel**:  
-- Inicie **Apache** ✅  
-- Inicie **MySQL** ✅ (mesmo sem banco ainda)  
-
----
-
-### 📌 Passo 2 — Configurar o PHP no PATH
-
-- Vá até `C:\xampp\php`.  
-- Copie esse caminho.  
-- Acesse: **Editar variáveis de ambiente do sistema → Variáveis de Ambiente → Path → Novo → cole o caminho.**  
-- Feche e reabra o terminal e teste:  
-
-        php -v
+## Estrutura e comportamento atual
+• Front-end em Blade (Laravel), com navegação simulada
+• Sem dependência de banco de dados ou autenticação real
+• Fluxo esperado:
+1. O acesso inicial ocorre via landing.blade.php (página principal)
+2. O usuário é direcionado à tela de Login
+3. Ao clicar em “Login”, é levado ao Menu Principal
 
 ---
 
-### 📌 Passo 3 — Instalar o Composer
-
-- Baixe o instalador e siga os passos.  
-- Teste no terminal:  
-
-        composer -V
-
----
-
-### 📌 Passo 4 — Clonar o repositório
-
-- No terminal, vá até a pasta desejada e execute (PowerShell):
-
-        cd $HOME\Documents
-        git clone https://github.com/nadineeev/IFSync.git
-        cd IFSync
-
-- Se estiver no **Prompt de Comando (CMD)**, use:
-
-        cd %USERPROFILE%\Documents
-        git clone https://github.com/nadineeuv/IFSync.git
-        cd IFSync
-
-- Sem Git? Baixe o ZIP em **Code → Download ZIP** e extraia.
+## Branch pública
+Nome da branch pública: public (https://github.com/nadineeev/IFSync/tree/public).
+Como obter os arquivos:
+Via Git:
+git clone https://github.com/nadineeev/IFSync
+cd IFSync
+git checkout public
+Ou baixando diretamente:
+1. Acesse o repositório no GitHub: IFSync
+2. Troque para a branch "public".
+3. Clique em Code -> Download ZIP e extraia o conteúdo.
 
 ---
 
-### 📌 Passo 5 — Instalar dependências do Laravel
+## Como hospedar no servidor do professor (ambiente PHP)
+O professor possui um plano de hospedagem próprio — portanto, o ambiente já possui suporte a PHP e está pronto para rodar o Laravel de forma básica. Abaixo o passo a passo:
 
-- Dentro da pasta do projeto, rode:
+#1 Envio dos arquivos
+1. Acesse o gerenciador de arquivos ou FTP do servidor (ex.: via cPanel, Hostinger, etc.)
+2. Envie todo o conteúdo desta branch pública para o diretório public_html/ ou www/.
+3. Certifique-se de que o arquivo landing.blade.php esteja acessível (geralmente em /resources/views/).
+Dica: Se o servidor não tiver o Laravel completo instalado, mantenha apenas os arquivos necessários (HTML/CSS/JS). Não é preciso configurar .env nem o banco.
 
-        composer install
+#2 Configuração inicial (opcional)
+Se desejar executar o Laravel de forma tradicional:
+php artisan serve
+Depois acesse http://seudominio.com.
+Se o servidor já estiver configurado para PHP (como na maioria dos planos), basta acessar o domínio — a landing page (landing.blade.php) será exibida automaticamente.
 
----
-
-### 📌 Passo 6 — Configurar o ambiente (.env)
-
-O arquivo `.env` é essencial no Laravel, pois contém todas as variáveis de configuração do projeto (como conexão com banco de dados, chave da aplicação, ambiente, etc.).
-
-- Copie o arquivo de exemplo para criar o `.env` (Windows):
-
-        copy .env.example .env
-
-  > Esse comando cria um novo arquivo chamado `.env` a partir do modelo `.env.example`.
-
-- Abra o arquivo `.env` na raiz do projeto.  
-  Nele você poderá configurar futuramente:
-  - `APP_NAME` → nome do sistema (ex.: "IFSync")  
-  - `APP_ENV` → ambiente da aplicação (`local`, `staging`, `production`)  
-  - `APP_DEBUG` → modo debug (`true` ou `false`)  
-  - `APP_URL` → URL base da aplicação (por padrão `http://localhost`)  
-  - `DB_CONNECTION`, `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD` → dados do banco de dados (quando configurarmos).  
-
-- Agora, gere a chave da aplicação com o comando:
-
-        php artisan key:generate
-
-  > Esse comando cria e adiciona automaticamente uma chave segura na variável `APP_KEY` dentro do `.env`.  
-  > Essa chave é usada pelo Laravel para criptografia e segurança da aplicação.
-
-⚠️ Importante: sem esse passo o Laravel não roda corretamente, pois depende da `APP_KEY` configurada no `.env`.
+#3 Testar o fluxo
+1. Abra o domínio hospedado.
+2. A tela inicial deve ser a landing page.
+3. Clique em Login -> o sistema redirecionará para o Menu Principal.
+4. Navegue pelas telas para testar o layout e o fluxo.
 
 
 ---
 
-### 📌 Passo 7 — Rodar o servidor Laravel
+## Orientações ao professor
+• Fazer o deploy somente desta branch pública
+• Hospedar no servidor próprio (plano pago)
+• Não configurar banco de dados, autenticação ou rotas dinâmicas
+• Garantir que o site abra pela landing page (landing.blade.php)
+• O fluxo de login já está ajustado para redirecionar automaticamente ao menu principal.
 
-- Suba o servidor:
+## Importante
+• A autenticação está desativada propositalmente.
+• Nenhum dado é armazenado (sem banco de dados).
+• Não reativar o middleware de autenticação nem o .env.
+• Esta versão é apenas para demonstração da interface e fluxo visual.
 
-        php artisan serve
-
-- Abra no navegador: http://localhost:8000  
-- Se a porta **8000** estiver ocupada:
-
-        php artisan serve --port=8001
-
----
-
-## 🧹 Comandos úteis
-
-- Limpar cache de views:
-
-        php artisan view:clear
-
-- Limpar cache de configuração:
-
-        php artisan config:clear
-        php artisan cache:clear
-
-- Ver rotas disponíveis:
-
-        php artisan route:list
-
----
-
-## 🔎 Entendendo o Laravel (resumo)
-
-- **Laravel** → Framework PHP baseado em **MVC**.  
-- **Models** → Dados e regras.  
-- **Views** → Páginas (Blade).  
-- **Controllers** → Lógica das rotas.  
-- **Composer** → Gerencia dependências PHP.  
-- **php artisan** → Ferramenta de comandos Laravel.  
-- **Node/NPM** → Não usado no IFSync ainda. Será útil futuramente para Tailwind, Vue, React ou build de assets.  
-
----
-
-## ✅ Resumo (checklist rápido)
-
-- [ ] Instalar XAMPP  
-- [ ] Configurar `php -v` no terminal  
-- [ ] Instalar Composer  
-- [ ] Clonar repositório (`git clone`)  
-- [ ] Rodar `composer install`  
-- [ ] Copiar `.env` → `copy .env.example .env`  
-- [ ] Gerar chave → `php artisan key:generate`  
-- [ ] Subir servidor → `php artisan serve`  
-
----
-
+## Próximos passos
+• Reativar autenticação Laravel com banco.
+• Implementar módulos estudantis: agenda, frequência, notas e calendário.
+• Integrar dashboards e funcionalidades reais.
+• Publicar versão completa após teste

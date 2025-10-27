@@ -79,11 +79,9 @@
         .login-container form {
             width: 100%;
             max-width: 380px;
-            /* limita largura do conteúdo interno */
             display: flex;
             flex-direction: column;
             align-items: center;
-            /* centraliza o formulário */
         }
 
         .logo {
@@ -108,7 +106,6 @@
             align-items: center;
             justify-content: center;
             gap: 6px;
-            /* espaço entre ícone e texto */
             font-size: 16px;
             color: #093E79;
             font-weight: 600;
@@ -119,7 +116,6 @@
         .input-group label i {
             font-size: 18px;
             color: #198754;
-            /* verde do tema */
         }
 
         .input-group input:focus+label,
@@ -267,11 +263,11 @@
         <img src="{{ asset('img/logo-ifsync.svg') }}" alt="Logo IFSync" class="logo">
 
         @if ($errors->any())
-            <div style="color:red; margin-bottom:10px;">
-                @foreach ($errors->all() as $error)
-                    <p>{{ $error }}</p>
-                @endforeach
-            </div>
+        <div style="color:red; margin-bottom:10px;">
+            @foreach ($errors->all() as $error)
+            <p>{{ $error }}</p>
+            @endforeach
+        </div>
         @endif
 
         <form method="POST" action="{{ route('login.post') }}">

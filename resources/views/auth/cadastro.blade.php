@@ -79,11 +79,9 @@
         .cadastro-container form {
             width: 100%;
             max-width: 380px;
-            /* limita largura do conteúdo interno */
             display: flex;
             flex-direction: column;
             align-items: center;
-            /* centraliza o formulário */
         }
 
         .logo {
@@ -108,7 +106,6 @@
             align-items: center;
             justify-content: center;
             gap: 6px;
-            /* espaço entre ícone e texto */
             font-size: 16px;
             color: #093E79;
             font-weight: 600;
@@ -119,7 +116,6 @@
         .input-group label i {
             font-size: 18px;
             color: #198754;
-            /* verde do tema */
         }
 
         .input-group input:focus+label,
@@ -270,41 +266,41 @@
             <p>imagem</p>
         </div>
         <div>
-        <img src="{{ asset('img/logo-ifsync.svg') }}" alt="Logo IFSync" class="logo">
+            <img src="{{ asset('img/logo-ifsync.svg') }}" alt="Logo IFSync" class="logo">
 
-        <form method="POST" action="{{ route('register.post') }}">
-            @csrf
+            <form method="POST" action="{{ route('register.post') }}">
+                @csrf
 
-            <div class="input-group">
-                <label>Nome</label>
-                <input type="text" name="name" value="{{ old('name') }}" required>
-            </div>
+                <div class="input-group">
+                    <label>Nome</label>
+                    <input type="text" name="name" value="{{ old('name') }}" required>
+                </div>
 
-            <div class="input-group">
-                <label>E-mail</label>
-                <input type="email" name="email" value="{{ old('email') }}" required>
-            </div>
+                <div class="input-group">
+                    <label>E-mail</label>
+                    <input type="email" name="email" value="{{ old('email') }}" required>
+                </div>
 
-            <div class="input-group">
-                <label>Telefone</label>
-                <input type="text" name="telefone" value="{{ old('telefone') }}" required>
-            </div>
+                <div class="input-group">
+                    <label>Telefone</label>
+                    <input type="text" name="telefone" value="{{ old('telefone') }}" required>
+                </div>
 
-            <div class="input-group">
-                <label>Senha</label>
-                <input type="password" name="password" required>
-            </div>
+                <div class="input-group">
+                    <label>Senha</label>
+                    <input type="password" name="password" required>
+                </div>
 
-            <div class="input-group">
-                <label>Confirmar senha</label>
-                <input type="password" name="confirm_password" required>
-            </div>
+                <div class="input-group">
+                    <label>Confirmar senha</label>
+                    <input type="password" name="confirm_password" required>
+                </div>
 
-            <button type="submit">CRIAR CONTA</button>
-        </form>
+                <button type="submit">CRIAR CONTA</button>
+            </form>
 
-        <p>Já tem uma conta? <a href="{{ route('login') }}">LOGIN</a></p>
-        </form>
+            <p>Já tem uma conta? <a href="{{ route('login') }}">LOGIN</a></p>
+            </form>
         </div>
     </div>
 

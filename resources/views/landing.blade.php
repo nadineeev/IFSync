@@ -20,7 +20,6 @@
   <meta name="theme-color" content="#ffffff">
 
   <style>
-
     @font-face {
       font-family: 'Agrandir';
       src: url("{{ asset('fonts/agrandir/Agrandir-Regular.woff2') }}") format('woff2');
