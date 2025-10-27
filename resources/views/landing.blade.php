@@ -168,7 +168,7 @@
   <div class="container">
 
     <div class="topo" aria-label="Acesso rápido">
-      <a class="botao botao-contorno" href="{{ route('register') }}">Cadastrar-se</a>
+      <a class="botao botao-contorno" href="#">Cadastrar-se</a>
       <a class="botao botao-preenchido" href="{{ route('login') }}">Login</a>
     </div>
 

@@ -18,6 +18,8 @@ class AuthController extends Controller
     // Faz o login
     public function login(Request $request)
     {
+        return redirect()->route('menu');
+        /*
         // valida os campos do formulário
         $credentials = $request->validate([
             'email'    => ['required', 'email'],
@@ -34,6 +36,7 @@ class AuthController extends Controller
         return back()->withErrors([
             'email' => 'E-mail ou senha incorretos.',
         ])->onlyInput('email');
+        */
     }
 
     // Faz o logout

@@ -157,7 +157,7 @@
             cursor: pointer;
         }
 
-        .lista-disciplinas { margin: 10px 20px 20px 20px; font-size: 14px; }
+        .lista-disciplinas { margin: 10px 20px 20px 20px; font-size: 14px; list-style: none;}
         .lista-disciplinas li { padding: 5px; }
 
         .main {
@@ -205,7 +205,7 @@
             <a href="#" class="menu-item"><i class="icons bi bi-calendar-date"></i>Agenda</a>
             <a href="#" class="menu-item"><i class="icons bi bi-calendar4-range"></i>Grade de Horários</a>
             <a href="#" class="menu-item"><i class="icons bi bi-check2-circle"></i>Avaliações e Notas</a>
-            <a href="{{ route('frequencia') }}" class="menu-item"><i class="icons bi bi-alarm"></i>Frequência</a>
+            <a href="#" class="menu-item"><i class="icons bi bi-alarm"></i>Frequência</a>
         </div>
 
         <img src="{{ asset('img/img-sidebar.png') }}" class="img-apoio" alt="Figura com elementos acadêmicos">
@@ -241,12 +241,13 @@
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="menuDropdown">
                     <li><a class="dropdown-item" href="#">Editar Perfil</a></li>
-                    <li><a class="dropdown-item" href="{{ route('cadastroDisciplinas') }}">Cadastrar Disciplinas</a></li>
+                    <li><a class="dropdown-item" href="#">Cadastrar Disciplinas</a></li>
                 </ul>
             </div>
         </div>
         
         {{-- Perfil do usuário --}}
+        <div>
         <div class="perfil-usuario-menu">
             <i class="icon-perfil bi bi-person-circle"></i>
             <p>☀️ Bom dia, {{ Auth::user()->name ?? 'Aluno(a)' }}!</p>
@@ -258,12 +259,22 @@
             <a href="#" class="menu-item"><span class="icons-borda"><i class="icons bi bi-files"></i></span></a>
             <a href="#" class="menu-item"><span class="icons-borda"><i class="icons bi bi-newspaper"></i></span></a>
         </div>
+        </div>
 
-        {{-- Disciplinas dinâmicas --}}
+        <div class="disciplinas-usuario">
+            <h3 class="subtitulo">Suas disciplinas</h3>
+            <p class="lista-disciplinas">
+                Nenhuma disciplina foi cadastrada ainda.
+            </p>
+        </div>
+
+
+
+         <!-- {{-- Disciplinas dinâmicas --}}
         <div class="disciplinas-usuario">
             <h3 class="subtitulo">Suas disciplinas</h3>
             <ul class="lista-disciplinas">
-                @php
+                {{-- @php
                     use Illuminate\Support\Facades\DB;
                     use Illuminate\Support\Facades\Auth;
 
@@ -272,15 +283,15 @@
                         ->where('aluno_disciplinas.user_id', Auth::id())
                         ->select('disciplinas.nome_disciplina')
                         ->get();
-                @endphp
+                @endphp 
 
                 @forelse($disciplinasUsuario as $disciplina)
                     <li>{{ $disciplina->nome_disciplina }}</li>
                 @empty
                     <li class="text-muted">Nenhuma disciplina cadastrada ainda</li>
-                @endforelse
+                @endforelse --}}
             </ul>
-        </div>
+        </div> -->
     </div>
 </body>
 </html>
